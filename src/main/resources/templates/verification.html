@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 verification portal</title>
+    <meta property="og:title" content="NPHCDA COVID-19 Website">
+    <meta property="og:site_name" content="Vaccination verification">
+    <meta property="og:url" content="https://verification.vaccination.gov.ng/">
+    <meta property="og:description" content="Nigeria's Official vaccination website">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="https://verification.vaccination.gov.ng/img/intro_nphcda.png">
+    <meta property="twitter:image" content="https://verification.vaccination.gov.ng/img/intro_nphcda.png"  />
+
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="manifest" href="favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/theme.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/stack-interface.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/flickity.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,400i,500,600,700%7CMerriweather:300,300i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
+
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-15JGRP7GF5"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-15JGRP7GF5');
+    </script>
+
+    <style>
+        .picker__select--year{
+            font-size: 15px;
+        }
+        .picker__select--month{
+            font-size: 15px;
+        }
+        .picker{
+            width: 100%;
+        }
+        .pending{
+            background-color: darkred;
+            color: #ffffff;
+        }
+
+        .isDisabled {
+            color: currentColor;
+            cursor: not-allowed;
+            opacity: 0.5;
+            text-decoration: none;
+            pointer-events: none;
+        }
+
+        .isDisabled > a {
+            color: currentColor;
+            display: inline-block;  /* For IE11/ MS Edge bug */
+            pointer-events: none;
+            text-decoration: none;
+        }
+
+
+        @media (min-width: 320px) and (max-width: 480px) {
+
+            .heading-block{
+                margin-top: -65px;
+            }
+
+
+        }
+
+        @media only screen and (min-width: 1025px) {
+            .heading-block {
+                margin-top: 65px;
+            }
+        }
+    </style>
+
+
+</head>
+<body  style="background-color: #007D53">
+<div id="loader"></div>
+<a id="start"></a>
+<div class="nav-container " style="background: white">
+    <div class="announcment" style="background-color: #007D53; color: #ffffff; text-align: center" >
+        <a href="tel:+2347002201122" class="hamburger-toggle" style="color: #ffffff; font-size: 15px">
+            <i class="material-icons" style="color: #ffffff; font-size: 15px">phone</i>
+            Help Line : 0700 220 1122
+        </a>
+    </div>
+    <div class="bar bar--sm visible-xs" >
+        <div class="container">
+            <div class="row">
+                <div class="col-3 col-md-2">
+                    <a href="/">
+                        <img class="logo logo-dark" alt="logo" src="img/logo_nphcda_main.svg" />
+                        <img class="logo logo-light" alt="logo" src="img/logo_nphcda_main.svg" />
+                    </a>
+                </div>
+                <div class="col-9 col-md-10 text-right">
+                    <a href="#" class="hamburger-toggle" data-toggle-class="#menu1;hidden-xs">
+                        <i class="icon icon--sm stack-interface stack-menu "  style="margin-top: 4px; font-size: 4.357143em; color: #0e262e"></i>
+                    </a>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </div>
+    <!--end bar-->
+    <nav id="menu1" class="bar bar--sm bar-1 hidden-xs bar--absolute bar--transparent" style="background: white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1 col-md-2 hidden-xs">
+                    <div class="bar__module">
+                        <a href="/">
+                            <img class="logo logo-light" alt="logo" src="img/logo_nphcda_main.svg" />
+                        </a>
+                    </div>
+                    <!--end module-->
+                </div>
+
+                <div class="col-lg-11 col-md-12 text-right text-left-xs text-left-sm">
+                    <div class="bar__module">
+
+                    </div>
+                </div>
+
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </nav>
+    <!--end bar-->
+</div>
+<div class="main-container" >
+
+
+
+
+
+    <section class="imageblock switchable">
+
+        <div class="container" style="background-color: white; max-width: 1000px!important;">
+
+
+
+
+
+
+
+            <div class="row justify-content-md-center">
+
+
+
+
+
+                <div class="col-lg-7 col-md-7">
+
+
+
+                    <div class="heading-block">
+
+
+
+                        <section class="bar bar-3 bar--sm ">
+
+                            <div class="row">
+                                <div class="col-md-12 text-center" >
+
+                                            <span>Issues with details on this certficate?
+                                <a href="#" data-notification-link="newsletter-1" style="font-size: 1em"><span class="label label--inline">update</span></a> </span>
+                                </div>
+
+                                <div class="col-md-12 text-center" th:if="${verifiedrecord != null && verifiedrecord.checkEligible() == true }" >
+
+                                            <span>Due for second dose!
+                                             <a href="#"  style="font-size: 1em"> <span class="label label--inline bg-danger">list of vaccination sites</span></a> </span>
+                                </div>
+                            </div>
+
+
+
+                        </section>
+
+
+                    </div>
+
+
+                    <div class="card card-2 " th:if="${verifiedrecord != null}" >
+
+                        <h4 class="text-center">VACCINATION e-CERTIFICATE </h4>
+
+
+                        <hr/>
+
+
+
+
+                        <div class="boxed  boxed--border">
+
+                            <div class="clearfix text-center">
+
+                                <div class="row justify-content-md-center">
+                                    <div class="col"   >
+
+                                        <img alt="Image"  th:src="${barcode}" width="200px">
+
+                                    </div>
+                                    <div class="col-8 text-left mt-0" >
+                                        <a href="#" th:if="${displaydot == true}" style="float: right; padding-right: 20px;">
+                                            <i class="material-icons" style="color: red">adjust</i>
+                                        </a>
+
+
+                                        <span class="h5 mb-0" th:text="${verifiedrecord.getFamilyName().toUpperCase()} + ' ' + ${verifiedrecord.getOtherNames().toUpperCase()}"></span>
+                                        <span class="h5 mb-0">VAC ID: [[${verifiedrecord.getVaccinnationID()}]]</span>
+
+                                        <span class="h5 mb-0">[[${verifiedrecord.getIdType()}]] NO : [[${verifiedrecord.getDocumentId()}]]  </span>
+                                        <span class="h5 mb-0">SEX: [[${verifiedrecord.getGender}]]  |  DOB: [[${verifiedrecord.getDOB}]]  </span>
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                                <br/>
+
+                                <div th:if="${validatationinfo != null}" class="row justify-content-md-center">
+                                    <div class="col"   >
+
+                                        <img th:if="${verifiedimg != null}" alt="profile-image"  class="image--lg"  th:src="${verifiedimg}"  style="width: 140px;  border: 2px solid #006400; background-image: url('http://res.cloudinary.com/nphcdaict/image/upload/v1633926858/watermark_mvfiyj.png'); border: 2px solid green" />
+
+
+                                    </div>
+                                    <div class="col-8 text-left "  >
+
+                                        <span  class="h5 mb-0" >VALIDATION ID : [[${validatationinfo.getId()}]]</span>
+                                        <span  class="h5 mb-0" >SITE ID: [[${verifiedrecord.getSiteID()}]]</span>
+
+                                        <span  class="h5 mb-0" >GEO-LOCATION</span>
+                                        <span  class="h5 mb-0"  th:text="${validatationinfo.getLocation()}"></span>
+
+
+
+
+
+
+
+
+                                    </div>
+
+                                </div>
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                        <ul class="accordion accordion-1 accordion--oneopen" style="min-height: 0px;">
+                            <li class="active" >
+                                <div class="accordion__title" th:classappend="${verifiedrecord.getVaccinnatedFirstDose() and verifiedrecord.getVaccinatedSecondDose ? 'lastdosedone' : 'novaccinnation'}"  th:style="${verifiedrecord.getVaccinnatedFirstDose()? 'border: none;background-color: #eed202;color: #000000;' : ''}"
+                                     th:styleappend="${verifiedrecord.getVaccinatedSecondDose() || verifiedrecord.getVaccationtype()=='Johnson'? 'border: none; background-color: darkgreen ;color: #ffffff;' : '' }"
+                                >
+
+                                    <span class="h5 type--uppercase" th:if="${verifiedrecord.getVaccinnatedFirstDose() and !verifiedrecord.getVaccinatedSecondDose and verifiedrecord.getVaccationtype()!='Johnson'}">COVID-19 - PARTIAL VACCINATION  <i style=" font-size: 10px" class="material-icons">done</i></span>
+                                    <span class="h5 type--uppercase" th:if="${!verifiedrecord.getVaccinnatedFirstDose()}" >COVID-19 - VACCINATION PENDING</span>
+                                    <span class="h5 type--uppercase" th:if="${verifiedrecord.getVaccinatedSecondDose and verifiedrecord.getVaccinnatedFirstDose() }" style="color:#ffffff">COVID-19  VACCINATION COMPLETE  <i style=" font-size: 10px" class="material-icons">done_all</i></span>
+                                    <span class="h5 type--uppercase" th:if="${verifiedrecord.getVaccinnatedFirstDose() and verifiedrecord.getVaccationtype()=='Johnson' }" style="color:#ffffff"> COVID-19 - VACCINATION COMPLETE   <i style=" font-size: 10px" class="material-icons">done_all</i></span>
+
+                                </div>
+                                <div class="accordion__content">
+                                    <p class="lead">
+                                    <table th:if="${!covid.isEmpty()}" cellpadding="5px">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%">DOSE</th>
+                                            <th scope="col" style="width: 20%">DATE GIVEN</th>
+                                            <th scope="col" >VACCINE TYPE</th>
+                                            <th scope="col" style="width: 25%">BATCH NO</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="covid : ${covid}">
+                                            <td data-label="Account">[[${covid.pos}]]</td>
+                                            <td data-label="Account">[[${covid.vaccineDate}]]</td>
+                                            <td data-label="Due Date">[[${covid.vaccineType}]] <sup>&#174;</sup></td>
+                                            <td data-label="Amount" >[[${covid.vaccinebatchNumber}]]</td>
+
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                    </p>
+                                </div>
+                            </li>
+
+
+                        </ul>
+
+
+
+
+                        <span class="type--fade" >Issued By: National Primary Health Care Development Agency, Nigeria</span>
+
+
+
+
+
+
+
+
+                        <!--<form class="justify-content-center  row mx-0" th:if="${!pagedEntities.empty}"  th:object="${verification}"-->
+                        <!--th:action="@{/verify}"  method="GET">-->
+                        <!--<div class="col-md-12">-->
+
+                        <!--<input type="text" name="vackey" th:field="*{verificationID}" required="true" placeholder="NG-JGGW76232STD" class="validate-required">-->
+
+                        <!--<button  class="btn btn-lg btn-success btn-loading" type="submit" data-loading-text="Sending">-->
+
+
+                        <!--<span>Verify</span>-->
+                        <!--</button>-->
+
+                        <!--</div>-->
+
+
+
+
+                        <!--</form>-->
+
+
+
+
+
+
+                    </div>
+
+
+
+
+                    <div class="row justify-content-center" th:if="${verifiedrecord == null && validatationinfo==null}" >
+
+
+                        <div class="feature feature-3 boxed boxed--lg" style="text-align: center">
+
+                            <i class="icon icon--lg material-icons" style="font-size: 80px;" >link_off</i>
+
+                            <h2>Seems your record has not been linked or might not exist</h2>
+                            <h3>
+                                Try searching with your vaccination ID or visit your vaccination site.
+                            </h3>
+
+
+                            <br/>
+
+                            <br/>
+
+                            <br/>
+                            <form class="justify-content-center  row mx-0"  th:object="${verification}"
+                                  th:action="@{/verify}"  method="GET">
+                                <div class="col-md-12">
+
+                                    <input type="text" name="vackey" th:field="*{verificationID}" placeholder="NG-JGGW76232STD" required="true" class="validate-required">
+
+                                    <button  class="btn btn-lg btn-success btn-loading" type="submit" data-loading-text="Sending">
+
+
+                                        <span>Verify</span>
+                                    </button>
+
+                                </div>
+
+
+
+
+                            </form>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="row justify-content-center" th:if="${verifiedrecord == null && validatationinfo!=null}" >
+
+
+                        <div class="feature feature-3 boxed boxed--lg" style="text-align: center">
+
+                            <i class="icon icon--lg material-icons" style="font-size: 80px;" >hourglass_bottom</i>
+
+
+
+
+                            <br/>
+
+                            <br/>
+
+                            <br/>
+
+                            <form class="justify-content-center  row mx-0"  th:object="${verification}"
+                                  th:action="@{/verify}"  method="GET">
+                                <div class="col-md-12">
+
+                                    <input type="text" name="vackey" th:field="*{verificationID}" placeholder="NG-JGGW76232STD" required="true" class="validate-required">
+
+                                    <button  class="btn btn-lg btn-success btn-loading" type="submit" data-loading-text="Sending">
+
+
+                                        <span>Verify</span>
+                                    </button>
+
+                                </div>
+
+
+
+
+                            </form>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
+</div>
+
+
+
+
+
+
+<div class="notification pos-right pos-bottom col-md-4 col-lg-3" data-animation="from-bottom" data-notification-link="newsletter-1"
+     style="height: 80vh;">
+    <div class="feature feature-1 text-left">
+
+        <div class="feature__body boxed boxed--lg" style="height: 80vh">
+            <div class="modal-close modal-close-cross"></div>
+
+            <div class="container">
+
+                <form th:if="${verifiedrecord != null}" th:action="@{/updatedetails}"  method="POST"  class="justify-content-left" th:object="${ver}"   data-success="Thanks for signing up.  Please check your inbox for a confirmation email." data-error="Please provide your name, email address and agree to the terms.">
+
+
+                    <div class="row" id="access">
+                        <div class="col-md-12">
+                            <h5 class="text-left">Enter the phone number or email you provided at registration
+                                <br/> or call <a href="tel:07002201122">07002201122</a> for assistance</h5>
+                            <br/>
+                            <input type="text" id="phonenumber"  th:field="*{phone}" >
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" id="vacid" placeholder="Password" th:field="*{vacnum}" hidden/>
+                        </div>
+                        <div class="col-md-12">
+                            <button  id="checker" type="submit" class="btn-sm btn btn-success type--uppercase" >Confirm</button>
+                        </div>
+                    </div>
+                    <!--end of row-->
+
+
+                    <div class="row"  id="edit">
+                        <div class="col-md-12">
+                            <h5 class="text-left">Date Of Birth</h5>
+                            <input type="text" name="dob" id="dob" class="datepicker"  th:value="${ver.dob}"  th:field="*{dob}" />
+
+                        </div>
+                        <div class="col-md-12">
+                            <h5 class="text-left">Type of ID</h5>
+                            <div class="input-select">
+                                <select style="font-size: 16px" th:field="*{idtype}">
+                                    <option value="nin">NIN</option>
+                                    <option value="dl">Driver's License</option>
+                                    <option value="ip">International Passport</option>
+                                    <option value="vc">Voters Card</option>
+                                    <option value="ot">I don't have</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5 class="text-left">ID Number</h5>
+                            <input class="validate-required" type="text"   th:field="*{idnum}"   />
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <h5 class="text-left">Surname</h5>
+                            <input class="validate-required " type="text"  th:field="*{familyname}"   />
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <h5 class="text-left">Other Name</h5>
+                            <input type="text" class="validate-required "   th:field="${ver.othername}"   />
+                        </div>
+
+
+
+                        <div class="col-md-12">
+                            <h5 class="text-left">Sex</h5>
+                            <div class="input-select">
+                                <select style="font-size: 16px" th:field="*{sex}">
+                                    <option value="MALE">MALE</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        <div class="col-md-12">
+                            <h5 class="text-left text-warning">Only 1 attempt left !</h5>
+                            <button type="submit" id="subbtn" class="btn-sm btn btn-success type--uppercase" style="font-size: 0.857143em">Update Details</button>
+
+                        </div>
+                        <br/>
+                        <br/>
+
+                        <br/>
+
+                        <br/>
+
+                        <br/>
+                        <p>sd</p>
+
+
+                    </div>
+
+
+
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+        <div class="notification-close-cross notification-close-cross--circle notification-close"></div>
+    </div>
+    <!--end feature-->
+</div>
+
+<div class="notification pos-right pos-bottom col-md-4 col-lg-3" data-animation="from-bottom" data-notification-link="vaccination-sites-1"
+     style="height: 95vh;">
+    <div class="feature feature-1 text-left">
+
+        <div class="feature__body boxed boxed--lg" style="height: 95vh">
+            <div class="modal-close modal-close-cross"></div>
+
+            <div class="container">
+
+                <form  method="POST"  class="justify-content-left"   data-success="Thanks for signing up.  Please check your inbox for a confirmation email." data-error="Please provide your name, email address and agree to the terms.">
+
+
+                    <div class="row" id="access">
+                        <div class="col-md-12">
+                            <h5 class="text-left"> Select state of vaccination</h5>
+                            <div class="col-md-12">
+
+
+                                <div class="input-select">
+                                    <select id="stateofres" style="font-size: 16px" >
+                                        <option value="">Select Option</option>
+                                        <option value="Abia State">Abia State</option>
+                                        <option value="Adamawa State">Adamawa State</option>
+                                        <option value="Akwa-Ibom State">Akwa-Ibom State</option>
+                                        <option value="Anambra state">Anambra state</option>
+                                        <option value="Bauchi State">Bauchi State</option>
+                                        <option value="Bayelsa State">Bayelsa State</option>
+                                        <option value="Benue State">Benue State</option>
+                                        <option value="Borno State">Borno State</option>
+                                        <option value="Cross River State">Cross River State</option>
+                                        <option value="Delta State">Delta State</option>
+                                        <option value="Ebonyi State">Ebonyi State</option>
+                                        <option value="Edo State">Edo State</option>
+                                        <option value="Ekiti State">Ekiti State</option>
+                                        <option value="Enugu State">Enugu State</option>
+                                        <option value="Federal Capital Territory">Federal Capital Territory</option>
+                                        <option value="Gombe State">Gombe State</option>
+                                        <option value="Imo State">Imo State</option>
+                                        <option value="Jigawa State">Jigawa State</option>
+                                        <option value="Kaduna State">Kaduna State</option>
+                                        <option value="Kano State">Kano State</option>
+                                        <option value="Katsina State">Katsina State</option>
+                                        <option value="Kebbi State">Kebbi State</option>
+                                        <option value="Kogi State">Kogi State</option>
+                                        <option value="Kwara State">Kwara State</option>
+                                        <option value="Lagos State">Lagos State</option>
+                                        <option value="Nasarawa State">Nasarawa State</option>
+                                        <option value="Niger State">Niger State</option>
+                                        <option value="Ogun State">Ogun State</option>
+                                        <option value="Ondo State">Ondo State</option>
+                                        <option value="Osun State">Osun State</option>
+                                        <option value="Oyo State">Oyo State</option>
+                                        <option value="Plateau State">Plateau State</option>
+                                        <option value="Rivers State">Rivers State</option>
+                                        <option value="Sokoto State">Sokoto State</option>
+                                        <option value="Taraba State">Taraba State</option>
+                                        <option value="Yobe State">Yobe State</option>
+                                        <option value="Zamfara State">Zamfara State</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <h5 class="text-left"> Select preferred Lga</h5>
+                            <div class="col-md-12">
+
+
+                                <div class="input-select">
+                                    <select id="lgaselect" style="font-size: 16px" >
+                                        <option value="">Select Option</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <ul class="accordion accordion-1">
+                        <li class="active">
+                            <div class="accordion__title" style="background-color: #28a745">
+                                <span class="h5">Vaccination Sites</span>
+                            </div>
+                            <div class="accordion__content">
+                                <ul id="bullets">
+
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <!--end of row-->
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+        <div class="notification-close-cross notification-close-cross--circle notification-close"></div>
+    </div>
+    <!--end feature-->
+</div>
+
+<div class="notification pos-right pos-bottom col-md-4 col-lg-3" data-animation="from-bottom" data-notification-link="contact-person-1"
+     style="height: 95vh;">
+    <div class="feature feature-1 text-left">
+
+        <div class="feature__body boxed boxed--lg" style="height: 95vh">
+            <div class="modal-close modal-close-cross"></div>
+
+            <div class="container">
+
+                <form  method="POST"  class="justify-content-left"   data-success="Thanks for signing up.  Please check your inbox for a confirmation email." data-error="Please provide your name, email address and agree to the terms.">
+
+
+                    <div class="row" id="access">
+                        <div class="col-md-12">
+                            <h5 class="text-left"> Select state of vaccination</h5>
+                            <div class="col-md-12">
+
+
+                                <div class="input-select">
+                                    <select id="stat" style="font-size: 16px" >
+                                        <option value="">Select Option</option>
+                                        <option value="Abia State">Abia State</option>
+                                        <option value="Adamawa State">Adamawa State</option>
+                                        <option value="Akwa-Ibom State">Akwa-Ibom State</option>
+                                        <option value="Anambra state">Anambra state</option>
+                                        <option value="Bauchi State">Bauchi State</option>
+                                        <option value="Bayelsa State">Bayelsa State</option>
+                                        <option value="Benue State">Benue State</option>
+                                        <option value="Borno State">Borno State</option>
+                                        <option value="Cross River State">Cross River State</option>
+                                        <option value="Delta State">Delta State</option>
+                                        <option value="Ebonyi State">Ebonyi State</option>
+                                        <option value="Edo State">Edo State</option>
+                                        <option value="Ekiti State">Ekiti State</option>
+                                        <option value="Enugu State">Enugu State</option>
+                                        <option value="Federal Capital Territory">Federal Capital Territory</option>
+                                        <option value="Gombe State">Gombe State</option>
+                                        <option value="Imo State">Imo State</option>
+                                        <option value="Jigawa State">Jigawa State</option>
+                                        <option value="Kaduna State">Kaduna State</option>
+                                        <option value="Kano State">Kano State</option>
+                                        <option value="Katsina State">Katsina State</option>
+                                        <option value="Kebbi State">Kebbi State</option>
+                                        <option value="Kogi State">Kogi State</option>
+                                        <option value="Kwara State">Kwara State</option>
+                                        <option value="Lagos State">Lagos State</option>
+                                        <option value="Nasarawa State">Nasarawa State</option>
+                                        <option value="Niger State">Niger State</option>
+                                        <option value="Ogun State">Ogun State</option>
+                                        <option value="Ondo State">Ondo State</option>
+                                        <option value="Osun State">Osun State</option>
+                                        <option value="Oyo State">Oyo State</option>
+                                        <option value="Plateau State">Plateau State</option>
+                                        <option value="Rivers State">Rivers State</option>
+                                        <option value="Sokoto State">Sokoto State</option>
+                                        <option value="Taraba State">Taraba State</option>
+                                        <option value="Yobe State">Yobe State</option>
+                                        <option value="Zamfara State">Zamfara State</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <ul class="accordion accordion-1">
+                        <li class="active">
+                            <div class="accordion__title" style="background-color: #28a745">
+                                <span class="h5">Contact persons</span>
+                            </div>
+                            <div class="accordion__content">
+                                <ul id="bullets">
+
+                                </ul>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <!--end of row-->
+
+
+
+
+
+
+
+
+
+
+                </form>
+            </div>
+
+        </div>
+        <div class="notification-close-cross notification-close-cross--circle notification-close"></div>
+    </div>
+    <!--end feature-->
+</div>
+
+
+
+
+<div class="notification promo-notification pos-left pos-top col-sm-4 col-md-3" data-animation="from-top" data-notification-link="trigger" data-autohide="5000">
+    <div class="boxed boxed--border bg--dark border--round">
+                                    <span id="notiftext">By visitng our site, you agree to use of cookies to enhance your browsing experience.&nbsp;
+
+                                    </span>
+    </div>
+</div>
+
+
+
+<a class="back-to-top inner-link" href="#start" data-scroll-class="100vh:active">
+    <i class="stack-interface stack-up-open-big"></i>
+</a>
+
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script src="js/flickity.min.js"></script>
+<script src="js/datepicker.js"></script>
+<script src="js/isotope.min.js"></script>
+<script src="js/ytplayer.min.js"></script>
+<script src="js/lightbox.min.js"></script>
+<script src="js/granim.min.js"></script>
+<script src="js/jquery.steps.min.js"></script>
+<script src="js/countdown.min.js"></script>
+<script src="js/twitterfetcher.min.js"></script>
+<script src="js/spectragram.min.js"></script>
+<script src="js/smooth-scroll.min.js"></script>
+<script src="js/scripts.js"></script>
+
+
+<script>
+
+
+    $('.datepicker').pickadate({
+        format: 'dd-mm-yyyy',
+        selectYears: true,
+        selectMonths: true,
+        selectYears: 80,
+        min: new Date(1919,12,31),
+        max: new Date(2003,12,31)
+    })
+
+
+
+    const stateselect= document.getElementById("stateofres");
+    const lgaselect= document.getElementById("lgaselect");
+
+
+    stateselect.addEventListener("change", populateLGA);
+    lgaselect.addEventListener("change", populateFacility);
+
+
+
+    var edit= document.getElementById("edit");
+    var access= document.getElementById("access");
+    var subbtn= document.getElementById("subbtn");
+    subbtn.style.display="none";
+
+    edit.style.display="none";
+
+    checker.addEventListener("click", checkavailability);
+
+
+    async function populateLGA(event) {
+
+        var stateid = document.getElementById("stateofres").value;
+        console.log(stateid);
+        $.ajax({
+            type: 'GET',
+            url: "https://vaccination.gov.ng/getlga/" + stateid,
+            success: function(data){
+                var slctSubcat=$('#lgaselect'), option="";
+                slctSubcat.empty();
+                console.log(data)
+
+                for(var i=0; i<data.length; i++){
+                    option = option + "<option value='"+data[i].lga + "'>"+data[i].lga+ "</option>";
+                }
+                slctSubcat.append(option);
+
+                populateFacility();
+            },
+            error:function(){
+                alert("please select a valid state");
+            }
+
+        });
+
+    }
+
+    async function populateFacility(event) {
+        var lgaid = document.getElementById("lgaselect").value;
+
+
+        $.ajax({
+            type: 'GET',
+            url: "https://vaccination.gov.ng/getfacility?lgaid=" + lgaid,
+            success: function(data){
+
+
+                var ul = document.getElementById("bullets");
+                ul.innerHTML = '';
+
+                for(var i=0; i<data.length; i++){
+
+                    var topping = data[i].healthCenter;
+
+                    var listItem = document.createElement("li");
+                    listItem.textContent = topping;
+
+                    ul.append(listItem);
+
+                }
+
+
+            },
+            error:function(){
+                alert("error");
+            }
+
+        });
+    }
+    function showEditdetails() {
+        edit.style.display="block";
+        subbtn.style.display="block";
+        access.style.display="none";
+    }
+
+    function checkavailability(event) {
+        event.preventDefault();
+
+        var vacid = document.getElementById("vacid").value;
+        var phone = document.getElementById("phonenumber").value;
+        var notification= document.getElementById("notif");
+
+        console.log(vacid);
+        console.log(phone);
+
+
+
+        $.ajax({
+            type: 'GET',
+            url: "/getAccess?phone=" + phone,
+            success: function(data){
+
+                console.log("checking facility "+data)
+
+
+
+
+                console.log(data.status)
+                if(data.status=="success"){
+                    document.getElementById("notiftext").innerHTML = data.message;
+
+                    var promoNotification = $('.promo-notification');
+                    mr.notifications.closeNotification('.promo-notification');
+                    mr.notifications.showNotification(promoNotification);
+                    window.location.href = "/account";
+
+                }else{
+                    console.log("eleeeeeeeeeeee")
+                    document.getElementById("notiftext").innerHTML = data.message;
+
+                    var promoNotification = $('.promo-notification');
+                    mr.notifications.showNotification(promoNotification);
+                    edit.style.display="none";
+                    subbtn.style.display="none";
+
+                }
+
+
+
+
+            },
+            error:function(){
+                alert("error");
+            }
+
+        });
+    }
+</script>
+
+</body>
+</html>
